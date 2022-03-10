@@ -8,7 +8,7 @@ type Emulator interface {
 }
 
 type emulator struct {
-	cpu     Cpu
+	cpu     *Cpu
 	isDebug bool
 }
 

@@ -183,21 +183,21 @@ func (c *csr) ReadBit(addr uint16, bit uint64) uint64 {
 func (c *csr) ReadBits(addr uint16, start, end uint64) uint64 {
 	var bitMask uint64
 	if end != 64 {
-		bitMask = ^0 << end
+		bitMask = ^uint64(0) << end
 	}
 	return (c.Read(addr) & ^bitMask) >> start
 }
 
 func (c *csr) WriteBit(addr uint16, bit uint64, value uint64) {
 	if value == 1 {
-		c.Write(addr, c.Read(addr)|1<<bit)
+		c.Write(addr, c.Read(addr)|uint64(1)<<bit)
 	} else {
-		c.Write(addr, c.Read(addr)|^(1<<bit))
+		c.Write(addr, c.Read(addr)|^(uint64(1)<<bit))
 	}
 }
 
 func (c *csr) WriteBits(addr uint16, start, end uint64, value uint64) {
-	var bitMask uint64 = (^0 << end) | ^(^0 << start)
+	var bitMask uint64 = (^uint64(0) << end) | ^(^uint64(0) << start)
 	c.Write(addr, (c.Read(addr)&bitMask)|(value<<start))
 }
 
