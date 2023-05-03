@@ -28,33 +28,33 @@ public class Dram implements Device {
 
     private long load8(long address) {
         int index = (int) (address - Const.DRAM_BASE);
-        return dram[index];
+        return dram[index] & 0xff;
     }
 
     private long load16(long address) {
         int index = (int) (address - Const.DRAM_BASE);
-        return dram[index]
-                | (dram[index+1] << 8);
+        return (dram[index] & 0xff)
+                | ((dram[index+1] & 0xff) << 8);
     }
 
     private long load32(long address) {
         int index = (int) (address - Const.DRAM_BASE);
-        return dram[index]
-                | (dram[index+1] << 8)
-                | (dram[index+2] << 16)
-                | (dram[index+3] << 24);
+        return (dram[index] & 0xff)
+                | ((dram[index+1] & 0xff) << 8)
+                | ((dram[index+2] & 0xff) << 16)
+                | ((dram[index+3] & 0xff) << 24);
     }
 
     private long load64(long address) {
         int index = (int) (address - Const.DRAM_BASE);
-        return dram[index]
-                | (dram[index+1] << 8)
-                | (dram[index+2] << 16)
-                | (dram[index+3] << 24)
-                | ((long) dram[index + 4] << 32)
-                | ((long) dram[index + 5] << 40)
-                | ((long) dram[index + 6] << 48)
-                | ((long) dram[index + 7] << 56);
+        return (dram[index] & 0xff)
+                | ((dram[index+1] & 0xff) << 8)
+                | ((dram[index+2] & 0xff) << 16)
+                | ((dram[index+3] & 0xff) << 24)
+                | ((long) (dram[index + 4] & 0xff) << 32)
+                | ((long) (dram[index + 5] & 0xff) << 40)
+                | ((long) (dram[index + 6] & 0xff) << 48)
+                | ((long) (dram[index + 7] & 0xff) << 56);
     }
 
     @Override
@@ -102,6 +102,6 @@ public class Dram implements Device {
     @Override
     public Range<Long> getRange() {
         // [0x80000000, +∞)
-        return Range.downTo(Const.DRAM_BASE, BoundType.OPEN);
+        return Range.downTo(Const.DRAM_BASE, BoundType.CLOSED);
     }
 }

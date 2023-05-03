@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Bus implements Device {
 
-    private List<Device> devices;
+    private final List<Device> devices;
 
     public Bus(byte[] code) {
         devices = new ArrayList<>();
