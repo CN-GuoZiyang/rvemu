@@ -13,7 +13,8 @@ public class Executor {
     public Executor(Core core) {
         executorMap = Map.of(
                 InstType.IType, new IExecutor(core),
-                InstType.RType, new RExecutor(core)
+                InstType.RType, new RExecutor(core),
+                InstType.UType, new UExecutor(core)
         );
     }
 

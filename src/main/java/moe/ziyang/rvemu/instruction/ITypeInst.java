@@ -6,7 +6,7 @@ public class ITypeInst extends Instruction {
     private int rd;
     private int rs1;
     private int funct3;
-    private long imm;
+    private int imm;
 
     public ITypeInst(int opcode) {
         this.opcode = opcode;
@@ -17,7 +17,7 @@ public class ITypeInst extends Instruction {
         int rd = (rawInst >>> 7) & 0x1f;
         int rs1 = (rawInst >>> 15) & 0x1f;
         int funct3 = (rawInst >>> 13) & 0x7;
-        long imm = (rawInst & 0xfff00000) >> 20;
+        int imm = (rawInst & 0xfff00000) >> 20;
         return new ITypeInst(opcode).rd(rd).rs1(rs1).funct3(funct3).imm(imm);
     }
 
@@ -41,7 +41,7 @@ public class ITypeInst extends Instruction {
         return this;
     }
 
-    public ITypeInst imm(long imm) {
+    public ITypeInst imm(int imm) {
         this.imm = imm;
         return this;
     }
@@ -67,7 +67,7 @@ public class ITypeInst extends Instruction {
     }
 
     @Override
-    public long getImm() {
+    public int getImm() {
         return imm;
     }
 
