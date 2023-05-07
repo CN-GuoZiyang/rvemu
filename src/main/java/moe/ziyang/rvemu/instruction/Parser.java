@@ -22,6 +22,9 @@ public class Parser {
             case UType -> {
                 return UTypeInst.build(rawInst);
             }
+            case JType -> {
+                return JTypeInst.build(rawInst);
+            }
         }
         return null;
     }

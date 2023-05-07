@@ -1,33 +1,36 @@
 package moe.ziyang.rvemu.instruction;
 
-public class UTypeInst extends Instruction {
+public class JTypeInst extends Instruction {
 
     private int opcode;
     private int rd;
     private int imm;
 
-    public UTypeInst(int opcode) {
+    public JTypeInst(int opcode) {
         this.opcode = opcode;
     }
 
     public static Instruction build(int rawInst) {
         int opcode = rawInst & 0x7f;
         int rd = (rawInst >>> 7) & 0x1f;
-        int imm = rawInst & 0xfffff000;
-        return new UTypeInst(opcode).rd(rd).imm(imm);
+        int imm = ((rawInst & 0x80000000) >> 11)
+                | (rawInst & 0xff000)
+                | (rawInst >>> 9) & 0x800
+                | (rawInst >>> 20) & 0x7fe;
+        return new JTypeInst(opcode).rd(rd).imm(imm);
     }
 
     @Override
     public InstType getInstType() {
-        return InstType.UType;
+        return InstType.JType;
     }
 
-    private UTypeInst rd(int rd) {
+    private JTypeInst rd(int rd) {
         this.rd = rd;
         return this;
     }
 
-    private UTypeInst imm(int imm) {
+    private JTypeInst imm(int imm) {
         this.imm = imm;
         return this;
     }

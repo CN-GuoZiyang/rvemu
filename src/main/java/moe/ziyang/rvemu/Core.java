@@ -31,6 +31,9 @@ public class Core {
             // 1 取指
             int rawInst = this.fetch();
 
+            // 1.5 pc自增
+            pc += 4;
+
             // 2 译码
             Instruction inst;
             try {
@@ -41,9 +44,6 @@ public class Core {
 
             // 3 执行
             executor.execute(inst);
-
-            // 4 设置 pc
-            pc += 4;
 
             if (pc == 0) {
                 break;

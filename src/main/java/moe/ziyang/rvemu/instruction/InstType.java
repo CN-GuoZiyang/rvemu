@@ -6,5 +6,6 @@ public enum InstType {
     IType,
     SType,
     UType,
+    JType
 
 }

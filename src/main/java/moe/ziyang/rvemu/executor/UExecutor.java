@@ -16,11 +16,11 @@ public class UExecutor implements TypeExecutor {
         switch (inst.getOpcode()) {
             case 0x17:
                 // AUIPC
-                core.gprs.write(inst.getRd(), core.getPc() + inst.getImm());
+                core.gprs.write(inst.getRd(), core.getPc() + ((long) inst.getImm() << 32) >>> 32);
                 break;
             case 0x37:
                 // LUI
-                core.gprs.write(inst.getRd(), inst.getImm());
+                core.gprs.write(inst.getRd(), ((long) inst.getImm() << 32) >>> 32);
                 break;
         }
     }

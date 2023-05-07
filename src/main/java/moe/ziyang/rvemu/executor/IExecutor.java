@@ -23,7 +23,7 @@ public class IExecutor implements TypeExecutor {
                         break;
                     case 0x1:
                         // SLLI
-                        int shift = (int) (imm & 0x1fL);
+                        int shift = (int) (imm & 0x3fL);
                         core.gprs.write(inst.getRd(), core.gprs.read(inst.getRs1()) << shift);
                         break;
                     case 0x2:
@@ -40,7 +40,7 @@ public class IExecutor implements TypeExecutor {
                         break;
                     case 0x5:
                         // SRLI/SRAI
-                        shift = (int) (imm & 0x1fL);
+                        shift = (int) (imm & 0x3fL);
                         int shiftType = (int) (imm >> 4);
                         core.gprs.write(inst.getRd(),
                                 shiftType == 0 ? core.gprs.read(inst.getRs1()) >> shift : core.gprs.read(inst.getRs1()) >>> shift);

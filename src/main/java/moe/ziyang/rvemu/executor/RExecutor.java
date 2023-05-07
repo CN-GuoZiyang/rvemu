@@ -26,7 +26,7 @@ public class RExecutor implements TypeExecutor {
                         break;
                     case 0x1:
                         // SLL
-                        long shift = core.gprs.read(inst.getRs2()) & 0x1fL;
+                        long shift = core.gprs.read(inst.getRs2()) & 0x3fL;
                         core.gprs.write(inst.getRd(), core.gprs.read(inst.getRs1()) << shift);
                         break;
                     case 0x2:
@@ -43,7 +43,7 @@ public class RExecutor implements TypeExecutor {
                         break;
                     case 0x5:
                         // SRL/SRA
-                        shift = core.gprs.read(inst.getRs2()) & 0x1fL;
+                        shift = core.gprs.read(inst.getRs2()) & 0x3fL;
                         int shiftType = inst.getFunct7();
                         core.gprs.write(inst.getRd(), shiftType == 0 ? core.gprs.read(inst.getRs1()) >>> shift
                                                                      : core.gprs.read(inst.getRs1()) >> shift);
