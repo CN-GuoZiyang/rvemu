@@ -38,9 +38,9 @@ public abstract class Instruction {
         return 0;
     }
 
-    public int getImm() {
+    public long getImm() {
         Debug.panic(new EmuException(ExceptionEnum.MISS_MATCH_INSTRUCTION));
-        return 0;
+        return 0L;
     }
 
 }

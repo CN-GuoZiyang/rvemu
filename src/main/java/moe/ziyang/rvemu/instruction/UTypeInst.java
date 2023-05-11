@@ -4,7 +4,7 @@ public class UTypeInst extends Instruction {
 
     private int opcode;
     private int rd;
-    private int imm;
+    private long imm;
 
     public UTypeInst(int opcode) {
         this.opcode = opcode;
@@ -13,7 +13,7 @@ public class UTypeInst extends Instruction {
     public static Instruction build(int rawInst) {
         int opcode = rawInst & 0x7f;
         int rd = (rawInst >>> 7) & 0x1f;
-        int imm = rawInst & 0xfffff000;
+        long imm = rawInst & 0xfffff000L;
         return new UTypeInst(opcode).rd(rd).imm(imm);
     }
 
@@ -27,7 +27,7 @@ public class UTypeInst extends Instruction {
         return this;
     }
 
-    private UTypeInst imm(int imm) {
+    private UTypeInst imm(long imm) {
         this.imm = imm;
         return this;
     }
@@ -43,7 +43,7 @@ public class UTypeInst extends Instruction {
     }
 
     @Override
-    public int getImm() {
+    public long getImm() {
         return imm;
     }
 

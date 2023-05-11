@@ -32,7 +32,7 @@ public class IExecutor implements TypeExecutor {
                         break;
                     case 0x3:
                         // SLTIU
-                        core.gprs.write(inst.getRd(), Long.compareUnsigned(inst.getRs1(), imm) < 0 ? 1L : 0L);
+                        core.gprs.write(inst.getRd(), Long.compareUnsigned(core.gprs.read(inst.getRs1()), imm) < 0 ? 1L : 0L);
                         break;
                     case 0x4:
                         // XORI
@@ -47,11 +47,11 @@ public class IExecutor implements TypeExecutor {
                         break;
                     case 0x6:
                         // ORI
-                        core.gprs.write(inst.getRd(), imm | inst.getRs1());
+                        core.gprs.write(inst.getRd(), imm | core.gprs.read(inst.getRs1()));
                         break;
                     case 0x7:
                         // ANDI
-                        core.gprs.write(inst.getRd(), imm & inst.getRs1());
+                        core.gprs.write(inst.getRd(), imm & core.gprs.read(inst.getRs1()));
                         break;
                 }
         }

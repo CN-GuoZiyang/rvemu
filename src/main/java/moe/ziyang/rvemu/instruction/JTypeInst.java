@@ -4,7 +4,7 @@ public class JTypeInst extends Instruction {
 
     private int opcode;
     private int rd;
-    private int imm;
+    private long imm;
 
     public JTypeInst(int opcode) {
         this.opcode = opcode;
@@ -13,7 +13,7 @@ public class JTypeInst extends Instruction {
     public static Instruction build(int rawInst) {
         int opcode = rawInst & 0x7f;
         int rd = (rawInst >>> 7) & 0x1f;
-        int imm = ((rawInst & 0x80000000) >> 11)
+        long imm = ((rawInst & 0x80000000) >> 11)
                 | (rawInst & 0xff000)
                 | (rawInst >>> 9) & 0x800
                 | (rawInst >>> 20) & 0x7fe;
@@ -30,7 +30,7 @@ public class JTypeInst extends Instruction {
         return this;
     }
 
-    private JTypeInst imm(int imm) {
+    private JTypeInst imm(long imm) {
         this.imm = imm;
         return this;
     }
@@ -46,7 +46,7 @@ public class JTypeInst extends Instruction {
     }
 
     @Override
-    public int getImm() {
+    public long getImm() {
         return imm;
     }
 

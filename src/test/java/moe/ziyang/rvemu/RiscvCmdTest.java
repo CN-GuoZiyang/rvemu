@@ -8,6 +8,7 @@ public class RiscvCmdTest {
 
     private static final String RISCV_TOOLCHAIN_LOCATION = "/opt/riscv/bin/";
 
+    private Core core;
     private final String testName;
     private final String binFileName;
 
@@ -54,20 +55,18 @@ public class RiscvCmdTest {
         p.waitFor();
     }
 
-    public void addAssertion(Assertion a) {
-        this.assertions.add(a);
+    public void testAssertion(Assertion a) {
+        assert core != null;
+        a.Assert(core);
     }
 
-    public void test() throws IOException {
+    public void run() throws IOException {
         byte[] bytes;
         try (InputStream fin = new FileInputStream(binFileName)) {
             bytes = fin.readAllBytes();
         }
-        Core core = new Core(bytes);
+        core = new Core(bytes);
         core.run();
-        for (Assertion a : this.assertions) {
-            a.Assert(core);
-        }
     }
 
 }
