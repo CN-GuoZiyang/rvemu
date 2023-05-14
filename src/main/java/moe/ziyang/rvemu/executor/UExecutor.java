@@ -5,7 +5,7 @@ import moe.ziyang.rvemu.instruction.Instruction;
 
 public class UExecutor implements TypeExecutor {
 
-    private Core core;
+    private final Core core;
 
     public UExecutor(Core core) {
         this.core = core;
@@ -14,14 +14,12 @@ public class UExecutor implements TypeExecutor {
     @Override
     public void execute(Instruction inst) {
         switch (inst.getOpcode()) {
-            case 0x17:
+            case 0x17 ->
                 // AUIPC
-                core.gprs.write(inst.getRd(), core.getPc() + ((long) inst.getImm() << 32) >>> 32);
-                break;
-            case 0x37:
+                    core.gprs.write(inst.getRd(), core.getPc() + ((inst.getImm() << 32) >>> 32));
+            case 0x37 ->
                 // LUI
-                core.gprs.write(inst.getRd(), ((long) inst.getImm() << 32) >>> 32);
-                break;
+                    core.gprs.write(inst.getRd(), (inst.getImm() << 32) >>> 32);
         }
     }
 }

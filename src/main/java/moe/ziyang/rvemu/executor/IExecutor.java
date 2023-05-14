@@ -5,7 +5,7 @@ import moe.ziyang.rvemu.instruction.Instruction;
 
 public class IExecutor implements TypeExecutor {
 
-    private Core core;
+    private final Core core;
 
     public IExecutor(Core core) {
         this.core = core;
@@ -14,7 +14,7 @@ public class IExecutor implements TypeExecutor {
     @Override
     public void execute(Instruction inst) {
         switch (inst.getOpcode()) {
-            case 0x13:
+            case 0x13 -> {
                 long imm = inst.getImm();
                 switch (inst.getFunct3()) {
                     case 0x0:
@@ -36,7 +36,7 @@ public class IExecutor implements TypeExecutor {
                         break;
                     case 0x4:
                         // XORI
-                        core.gprs.write(inst.getRd(), imm ^ inst.getRs1());
+                        core.gprs.write(inst.getRd(), imm ^ core.gprs.read(inst.getRs1()));
                         break;
                     case 0x5:
                         // SRLI/SRAI
@@ -54,6 +54,7 @@ public class IExecutor implements TypeExecutor {
                         core.gprs.write(inst.getRd(), imm & core.gprs.read(inst.getRs1()));
                         break;
                 }
+            }
         }
     }
 }
