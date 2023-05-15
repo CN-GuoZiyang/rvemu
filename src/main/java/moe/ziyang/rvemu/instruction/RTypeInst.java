@@ -18,7 +18,7 @@ public class RTypeInst extends Instruction {
         int rd = (rawInst >>> 7) & 0x1f;
         int rs1 = (rawInst >>> 15) & 0x1f;
         int rs2 = (rawInst >>> 20) & 0x1f;
-        int funct3 = (rawInst >>> 13) & 0x7;
+        int funct3 = (rawInst >>> 12) & 0x7;
         int funct7 = (rawInst & 0xfe000000) >>> 25;
         return new RTypeInst(opcode).rd(rd).rs1(rs1).rs2(rs2).funct3(funct3).funct7(funct7);
     }
