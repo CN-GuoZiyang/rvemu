@@ -14,7 +14,8 @@ public class Executor {
         executorMap = Map.of(
                 InstType.IType, new IExecutor(core),
                 InstType.RType, new RExecutor(core),
-                InstType.UType, new UExecutor(core)
+                InstType.UType, new UExecutor(core),
+                InstType.JType, new JExecutor(core)
         );
     }
 

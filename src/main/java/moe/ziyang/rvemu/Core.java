@@ -59,4 +59,8 @@ public class Core {
         return pc;
     }
 
+    public void setPc(long pc) {
+        this.pc = pc;
+    }
+
 }
