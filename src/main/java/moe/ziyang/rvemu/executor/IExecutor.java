@@ -55,6 +55,12 @@ public class IExecutor implements TypeExecutor {
                         break;
                 }
             }
+            case 0x67 -> {
+                // JALR
+                core.gprs.write(inst.getRd(), core.getPc() + 4L);
+                long target = (inst.getImm() + core.gprs.read(inst.getRs1())) & ~0x1L;
+                core.setPc(target - 4L);
+            }
         }
     }
 }

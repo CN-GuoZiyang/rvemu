@@ -25,6 +25,9 @@ public class Parser {
             case JType -> {
                 return JTypeInst.build(rawInst);
             }
+            case BType -> {
+                return BTypeInst.build(rawInst);
+            }
         }
         return null;
     }
@@ -34,6 +37,8 @@ public class Parser {
             0x17, InstType.UType,       // AUIPC
             0x33, InstType.RType,       // ADD/SUB/SLT/SLTU/AND/OR/XOR/SLL/SRL/SRA
             0x37, InstType.UType,       // LUI
+            0x63, InstType.BType,       // BEQ/BNE
+            0x67, InstType.IType,       // JALR
             0x6f, InstType.JType       // JAL
     );
 
