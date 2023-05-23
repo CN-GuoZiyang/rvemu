@@ -28,6 +28,30 @@ public class BExecutor implements TypeExecutor {
                             core.setPc(core.getPc() + inst.getImm() - 4L);
                         }
                         break;
+                    case 0x4:
+                        // BLT
+                        if (core.gprs.read(inst.getRs1()) < core.gprs.read(inst.getRs2())) {
+                            core.setPc(core.getPc() + inst.getImm() - 4L);
+                        }
+                        break;
+                    case 0x5:
+                        // BGE
+                        if (core.gprs.read(inst.getRs1()) >= core.gprs.read(inst.getRs2())) {
+                            core.setPc(core.getPc() + inst.getImm() - 4L);
+                        }
+                        break;
+                    case 0x6:
+                        // BLTU
+                        if (Long.compareUnsigned(core.gprs.read(inst.getRs1()), core.gprs.read(inst.getRs2())) < 0) {
+                            core.setPc(core.getPc() + inst.getImm() - 4L);
+                        }
+                        break;
+                    case 0x7:
+                        // BGEU
+                        if (Long.compareUnsigned(core.gprs.read(inst.getRs1()), core.gprs.read(inst.getRs2())) >= 0) {
+                            core.setPc(core.getPc() + inst.getImm() - 4L);
+                        }
+                        break;
                 }
             }
         }
