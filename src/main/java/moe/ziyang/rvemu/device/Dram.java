@@ -8,7 +8,7 @@ import moe.ziyang.rvemu.infra.ExceptionEnum;
 
 public class Dram implements Device {
 
-    private byte[] dram;
+    private final byte[] dram;
 
     public Dram(byte[] initMem) {
         dram = new byte[Const.DRAM_SIZE];
@@ -42,7 +42,7 @@ public class Dram implements Device {
         return (dram[index] & 0xff)
                 | ((dram[index+1] & 0xff) << 8)
                 | ((dram[index+2] & 0xff) << 16)
-                | ((dram[index+3] & 0xff) << 24);
+                | ((long) (dram[index + 3] & 0xff) << 24);
     }
 
     private long load64(long address) {
@@ -50,7 +50,7 @@ public class Dram implements Device {
         return (dram[index] & 0xff)
                 | ((dram[index+1] & 0xff) << 8)
                 | ((dram[index+2] & 0xff) << 16)
-                | ((dram[index+3] & 0xff) << 24)
+                | ((long) (dram[index + 3] & 0xff) << 24)
                 | ((long) (dram[index + 4] & 0xff) << 32)
                 | ((long) (dram[index + 5] & 0xff) << 40)
                 | ((long) (dram[index + 6] & 0xff) << 48)

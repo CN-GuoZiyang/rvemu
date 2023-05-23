@@ -3,6 +3,9 @@ package moe.ziyang.rvemu.executor;
 import moe.ziyang.rvemu.Core;
 import moe.ziyang.rvemu.instruction.Instruction;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class IExecutor implements TypeExecutor {
 
     private final Core core;
@@ -14,6 +17,39 @@ public class IExecutor implements TypeExecutor {
     @Override
     public void execute(Instruction inst) {
         switch (inst.getOpcode()) {
+            case 0x03 -> {
+                long address = inst.getImm() + core.gprs.read(inst.getRs1());
+                switch (inst.getFunct3()) {
+                    case 0x0 -> {
+                        // LB
+                        // 此处强转为 byte 类型以进行符号位扩展
+                        byte b = (byte) core.load(address, 8);
+                        core.gprs.write(inst.getRd(), b);
+                    }
+                    case 0x1 -> {
+                        // LH
+                        short h = (byte) core.load(address, 16);
+                        core.gprs.write(inst.getRd(), h);
+                    }
+                    case 0x2 -> {
+                        // LW
+                        int w = (int) core.load(address, 32);
+                        core.gprs.write(inst.getRd(), w);
+                    }
+                    case 0x3 ->
+                        // LD
+                            core.gprs.write(inst.getRd(), core.load(address, 64));
+                    case 0x4 ->
+                        // LBU
+                            core.gprs.write(inst.getRd(), core.load(address, 8));
+                    case 0x5 ->
+                        // LHU
+                            core.gprs.write(inst.getRd(), core.load(address, 16));
+                    case 0x6 ->
+                        // LWU
+                            core.gprs.write(inst.getRd(), core.load(address, 32));
+                }
+            }
             case 0x13 -> {
                 long imm = inst.getImm();
                 switch (inst.getFunct3()) {

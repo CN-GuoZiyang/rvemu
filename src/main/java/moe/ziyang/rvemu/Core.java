@@ -63,4 +63,8 @@ public class Core {
         this.pc = pc;
     }
 
+    public long load(long address, int size) {
+        return this.bus.load(address, size);
+    }
+
 }
