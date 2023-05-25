@@ -67,4 +67,8 @@ public class Core {
         return this.bus.load(address, size);
     }
 
+    public void store(long address, int size, long value) {
+        this.bus.store(address, size, value);
+    }
+
 }

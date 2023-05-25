@@ -36,6 +36,7 @@ public class Parser {
             0x03, InstType.IType,    // LOAD
             0x13, InstType.IType,       // ADDI/SLTI/SLTIU/ANDI/ORI/XORI/SLLI/SRLI/SRAI
             0x17, InstType.UType,       // AUIPC
+            0x23, InstType.SType,       // STORE
             0x33, InstType.RType,       // ADD/SUB/SLT/SLTU/AND/OR/XOR/SLL/SRL/SRA
             0x37, InstType.UType,       // LUI
             0x63, InstType.BType,       // BEQ/BNE/BLT/BLTU/BGE/BGEU

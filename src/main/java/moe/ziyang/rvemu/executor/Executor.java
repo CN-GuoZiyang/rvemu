@@ -16,7 +16,8 @@ public class Executor {
                 InstType.RType, new RExecutor(core),
                 InstType.UType, new UExecutor(core),
                 InstType.JType, new JExecutor(core),
-                InstType.BType, new BExecutor(core)
+                InstType.BType, new BExecutor(core),
+                InstType.SType, new SExecutor(core)
         );
     }
 
