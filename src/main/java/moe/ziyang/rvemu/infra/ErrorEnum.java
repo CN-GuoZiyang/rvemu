@@ -1,6 +1,6 @@
 package moe.ziyang.rvemu.infra;
 
-public enum ExceptionEnum {
+public enum ErrorEnum {
 
     INTERNAL_ERROR(0x10000, ""),
     DEVICE_COLLISION(0x10001, "设备地址范围冲突"),
@@ -12,12 +12,12 @@ public enum ExceptionEnum {
     private int typeCode;
     private String message;
 
-    ExceptionEnum(int typeCode, String message) {
+    ErrorEnum(int typeCode, String message) {
         this.typeCode = typeCode;
         this.message = message;
     }
 
-    ExceptionEnum(Exception e) {
+    ErrorEnum(Exception e) {
         this.typeCode = 0x10000;
         this.message = e.getMessage();
     }

@@ -3,7 +3,7 @@ package moe.ziyang.rvemu;
 import moe.ziyang.rvemu.device.Bus;
 import moe.ziyang.rvemu.executor.Executor;
 import moe.ziyang.rvemu.infra.Const;
-import moe.ziyang.rvemu.infra.EmuException;
+import moe.ziyang.rvemu.infra.EmuError;
 import moe.ziyang.rvemu.instruction.Instruction;
 import moe.ziyang.rvemu.instruction.Parser;
 
@@ -35,7 +35,7 @@ public class Core {
             Instruction inst;
             try {
                 inst = Parser.parse(rawInst);
-            } catch (EmuException e) {
+            } catch (EmuError e) {
                 break;
             }
 

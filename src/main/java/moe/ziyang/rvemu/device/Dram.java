@@ -3,8 +3,8 @@ package moe.ziyang.rvemu.device;
 import com.google.common.collect.BoundType;
 import com.google.common.collect.Range;
 import moe.ziyang.rvemu.infra.Const;
-import moe.ziyang.rvemu.infra.EmuException;
-import moe.ziyang.rvemu.infra.ExceptionEnum;
+import moe.ziyang.rvemu.infra.EmuError;
+import moe.ziyang.rvemu.infra.ErrorEnum;
 
 public class Dram implements Device {
 
@@ -22,7 +22,7 @@ public class Dram implements Device {
             case 16 -> load16(address);
             case 32 -> load32(address);
             case 64 -> load64(address);
-            default -> throw new EmuException(ExceptionEnum.INVALID_LOAD_STORE_SIZE);
+            default -> throw new EmuError(ErrorEnum.INVALID_LOAD_STORE_SIZE);
         };
     }
 
@@ -64,7 +64,7 @@ public class Dram implements Device {
             case 16: store16(address, value);
             case 32: store32(address, value);
             case 64: store64(address, value);
-            default: throw new EmuException(ExceptionEnum.INVALID_LOAD_STORE_SIZE);
+            default: throw new EmuError(ErrorEnum.INVALID_LOAD_STORE_SIZE);
         }
     }
 

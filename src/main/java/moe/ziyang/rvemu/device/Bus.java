@@ -2,8 +2,8 @@ package moe.ziyang.rvemu.device;
 
 import com.google.common.collect.Range;
 import moe.ziyang.rvemu.infra.Debug;
-import moe.ziyang.rvemu.infra.EmuException;
-import moe.ziyang.rvemu.infra.ExceptionEnum;
+import moe.ziyang.rvemu.infra.EmuError;
+import moe.ziyang.rvemu.infra.ErrorEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +23,12 @@ public class Bus implements Device {
             if (device.getRange().contains(address)) {
                 try {
                     return device.load(address, size);
-                } catch (EmuException e) {
+                } catch (EmuError e) {
                     Debug.panic(e);
                 }
             }
         }
-        Debug.panic(new EmuException(ExceptionEnum.INVALID_ADDRESS));
+        Debug.panic(new EmuError(ErrorEnum.INVALID_ADDRESS));
         return 0;  // NEVER REACHED
     }
 
@@ -38,13 +38,13 @@ public class Bus implements Device {
             if (device.getRange().contains(address)) {
                 try {
                     device.store(address, size, value);
-                } catch (EmuException e) {
+                } catch (EmuError e) {
                     Debug.panic(e);
                 }
                 return;
             }
         }
-        Debug.panic(new EmuException(ExceptionEnum.INVALID_ADDRESS));
+        Debug.panic(new EmuError(ErrorEnum.INVALID_ADDRESS));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Bus implements Device {
             // 判断范围是否重合：区间相交且相交区间不为空区间
             if (device.getRange().isConnected(newDevice.getRange()) &&
                     !device.getRange().intersection(newDevice.getRange()).isEmpty()) {
-                Debug.panic(new EmuException(ExceptionEnum.DEVICE_COLLISION));
+                Debug.panic(new EmuError(ErrorEnum.DEVICE_COLLISION));
             }
         }
         devices.add(newDevice);

@@ -1,7 +1,7 @@
 package moe.ziyang.rvemu.instruction;
 
-import moe.ziyang.rvemu.infra.EmuException;
-import moe.ziyang.rvemu.infra.ExceptionEnum;
+import moe.ziyang.rvemu.infra.EmuError;
+import moe.ziyang.rvemu.infra.ErrorEnum;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ public class Parser {
     public static Instruction parse(int rawInst) {
         int opcode = rawInst & 0x7f;
         if (!instTypeMap.containsKey(opcode)) {
-            throw new EmuException(ExceptionEnum.UNSUPPORTED_INSTRUCTION);
+            throw new EmuError(ErrorEnum.UNSUPPORTED_INSTRUCTION);
         }
         switch (instTypeMap.get(opcode)) {
             case IType -> {
@@ -34,6 +34,7 @@ public class Parser {
 
     public static Map<Integer, InstType> instTypeMap = Map.of(
             0x03, InstType.IType,    // LOAD
+            0x0f, InstType.IType,       // FENCE/FENCE.I
             0x13, InstType.IType,       // ADDI/SLTI/SLTIU/ANDI/ORI/XORI/SLLI/SRLI/SRAI
             0x17, InstType.UType,       // AUIPC
             0x23, InstType.SType,       // STORE

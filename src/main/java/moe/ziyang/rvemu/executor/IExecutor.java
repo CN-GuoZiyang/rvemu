@@ -50,6 +50,17 @@ public class IExecutor implements TypeExecutor {
                             core.gprs.write(inst.getRd(), core.load(address, 32));
                 }
             }
+            case 0x0f -> {
+                int funct3 = inst.getFunct3();
+                switch (funct3) {
+                    case 0x0:
+                        // FENCE
+                        break;
+                    case 0x1:
+                        // FENCE.I
+                        break;
+                }
+            }
             case 0x13 -> {
                 long imm = inst.getImm();
                 switch (inst.getFunct3()) {
