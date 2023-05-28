@@ -1,7 +1,10 @@
 package moe.ziyang.rvemu.executor;
 
+import moe.ziyang.rvemu.Exception;
 import moe.ziyang.rvemu.instruction.Instruction;
 
+import java.util.Optional;
+
 public interface TypeExecutor {
-    void execute(Instruction inst);
+    Optional<Exception> execute(Instruction inst);
 }

@@ -6,7 +6,8 @@ public class UTypeInst extends Instruction {
     private int rd;
     private long imm;
 
-    public UTypeInst(int opcode) {
+    public UTypeInst(int rawInst, int opcode) {
+        super(rawInst);
         this.opcode = opcode;
     }
 
@@ -14,7 +15,7 @@ public class UTypeInst extends Instruction {
         int opcode = rawInst & 0x7f;
         int rd = (rawInst >>> 7) & 0x1f;
         long imm = rawInst & 0xfffff000L;
-        return new UTypeInst(opcode).rd(rd).imm(imm);
+        return new UTypeInst(rawInst, opcode).rd(rd).imm(imm);
     }
 
     @Override

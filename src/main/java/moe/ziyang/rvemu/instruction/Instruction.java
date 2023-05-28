@@ -8,6 +8,16 @@ public abstract class Instruction {
 
     public abstract InstType getInstType();
 
+    private int rawInst;
+
+    public Instruction(int rawInst) {
+        this.rawInst = rawInst;
+    }
+
+    public int getRawInst() {
+        return rawInst;
+    }
+
     public int getOpcode() {
         Debug.panic(new EmuError(ErrorEnum.MISS_MATCH_INSTRUCTION));
         return 0;

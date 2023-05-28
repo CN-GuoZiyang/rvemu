@@ -8,7 +8,8 @@ public class STypeInst extends Instruction {
     private int funct3;
     private long imm;
 
-    public STypeInst(int opcode) {
+    public STypeInst(int rawInst, int opcode) {
+        super(rawInst);
         this.opcode = opcode;
     }
 
@@ -18,7 +19,7 @@ public class STypeInst extends Instruction {
         int rs2 = (rawInst >>> 20) & 0x1f;
         int funct3 = (rawInst >>> 12) & 0x7;
         long imm = ((rawInst & 0xfe000000) >> 20) | ((rawInst >> 7) & 0x1f);
-        return new STypeInst(opcode).rs1(rs1).rs2(rs2).funct3(funct3).imm(imm);
+        return new STypeInst(rawInst, opcode).rs1(rs1).rs2(rs2).funct3(funct3).imm(imm);
     }
 
     @Override

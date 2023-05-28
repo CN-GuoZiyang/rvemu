@@ -8,7 +8,8 @@ public class BTypeInst extends Instruction {
     private int funct3;
     private long imm;
 
-    public BTypeInst(int opcode) {
+    public BTypeInst(int rawInst, int opcode) {
+        super(rawInst);
         this.opcode = opcode;
     }
 
@@ -21,7 +22,7 @@ public class BTypeInst extends Instruction {
                 | ((rawInst & 0x80) << 4)
                 | ((rawInst >>> 20) & 0x7e0)
                 | ((rawInst >>> 7) & 0x1e);
-        return new BTypeInst(opcode).rs1(rs1).rs2(rs2).funct3(funct3).imm(imm);
+        return new BTypeInst(rawInst, opcode).rs1(rs1).rs2(rs2).funct3(funct3).imm(imm);
     }
 
     @Override

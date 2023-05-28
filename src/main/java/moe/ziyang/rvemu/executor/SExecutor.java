@@ -1,7 +1,10 @@
 package moe.ziyang.rvemu.executor;
 
 import moe.ziyang.rvemu.Core;
+import moe.ziyang.rvemu.Exception;
 import moe.ziyang.rvemu.instruction.Instruction;
+
+import java.util.Optional;
 
 public class SExecutor implements TypeExecutor {
 
@@ -12,7 +15,7 @@ public class SExecutor implements TypeExecutor {
     }
 
     @Override
-    public void execute(Instruction inst) {
+    public Optional<Exception> execute(Instruction inst) {
         switch (inst.getOpcode()) {
             case 0x23 -> {
                 long address = inst.getImm() + core.gprs.read(inst.getRs1());
@@ -37,8 +40,15 @@ public class SExecutor implements TypeExecutor {
                         long value = core.gprs.read(inst.getRs2());
                         core.store(address, 64, value);
                     }
+                    default -> {
+                        return Optional.of(Exception.IllegalInstruction.setValue(inst.getRawInst()));
+                    }
                 }
             }
+            default -> {
+                return Optional.of(Exception.IllegalInstruction.setValue(inst.getRawInst()));
+            }
         }
+        return Optional.empty();
     }
 }

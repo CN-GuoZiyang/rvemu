@@ -1,10 +1,12 @@
 package moe.ziyang.rvemu.executor;
 
 import moe.ziyang.rvemu.Core;
+import moe.ziyang.rvemu.Exception;
 import moe.ziyang.rvemu.instruction.InstType;
 import moe.ziyang.rvemu.instruction.Instruction;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class Executor {
 
@@ -21,8 +23,8 @@ public class Executor {
         );
     }
 
-    public void execute(Instruction inst) {
-        executorMap.get(inst.getInstType()).execute(inst);
+    public Optional<Exception> execute(Instruction inst) {
+        return executorMap.get(inst.getInstType()).execute(inst);
     }
 
 }

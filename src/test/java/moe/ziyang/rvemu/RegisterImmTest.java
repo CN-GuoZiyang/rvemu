@@ -5,7 +5,7 @@ import moe.ziyang.rvemu.infra.Const;
 
 public class RegisterImmTest extends TestCase {
 
-    public void testAddi() throws Exception {
+    public void testAddi() throws java.lang.Exception {
         RiscvCmdTest addiTest = new RiscvCmdTest("test_addi");
         addiTest.compile("""
 addi x29, x0, 5
@@ -18,7 +18,7 @@ addi x31, x0, -6
         addiTest.testAssertion(new GPRAssertion(31, -6L));
     }
 
-    public void testSlti() throws Exception {
+    public void testSlti() throws java.lang.Exception {
         RiscvCmdTest sltiTest = new RiscvCmdTest("test_slti");
         sltiTest.compile("""
 addi x28, x0, 5
@@ -41,7 +41,7 @@ slti x6, x31, -5
         sltiTest.testAssertion(new GPRAssertion(6, 1L));
     }
 
-    public void testSltiu() throws Exception {
+    public void testSltiu() throws java.lang.Exception {
         RiscvCmdTest sltiuTest = new RiscvCmdTest("test_slti");
         sltiuTest.compile("""
 addi x28, x0, 5
@@ -74,7 +74,7 @@ sltiu x9, x28, -10
         sltiuTest.testAssertion(new GPRAssertion(9, 1L));
     }
 
-    public void testAndi() throws Exception {
+    public void testAndi() throws java.lang.Exception {
         RiscvCmdTest andiTest = new RiscvCmdTest("test_andi");
         andiTest.compile("""
 addi x2, x0, 5
@@ -93,7 +93,7 @@ andi x7, x6, 37
         andiTest.testAssertion(new GPRAssertion(7, -6&37L));
     }
 
-    public void testOri() throws Exception {
+    public void testOri() throws java.lang.Exception {
         RiscvCmdTest oriTest = new RiscvCmdTest("test_ori");
         oriTest.compile("""
 addi x2, x0, 5
@@ -112,7 +112,7 @@ ori x7, x6, 37
         oriTest.testAssertion(new GPRAssertion(7, -6L|37L));
     }
 
-    public void testXori() throws Exception {
+    public void testXori() throws java.lang.Exception {
         RiscvCmdTest xoriTest = new RiscvCmdTest("test_xori");
         xoriTest.compile("""
 addi x2, x0, 5
@@ -131,7 +131,7 @@ xori x7, x6, 37
         xoriTest.testAssertion(new GPRAssertion(7, -6L^37L));
     }
 
-    public void testSLLI() throws Exception {
+    public void testSLLI() throws java.lang.Exception {
         RiscvCmdTest slliTest = new RiscvCmdTest("test_slli");
         slliTest.compile("""
 addi x2, x0, 5
@@ -146,7 +146,7 @@ slli x5, x4, 6
         slliTest.testAssertion(new GPRAssertion(5, -6L << 6));
     }
 
-    public void testSRLI() throws Exception {
+    public void testSRLI() throws java.lang.Exception {
         RiscvCmdTest srliTest = new RiscvCmdTest("test_srli");
         srliTest.compile("""
 addi x2, x0, 0x7FF
@@ -161,7 +161,7 @@ srli x5, x4, 4
         srliTest.testAssertion(new GPRAssertion(5, 0x6FFL >>> 4));
     }
 
-    public void testSRAI() throws Exception {
+    public void testSRAI() throws java.lang.Exception {
         RiscvCmdTest sraiTest = new RiscvCmdTest("test_srai");
         sraiTest.compile("""
 addi x2, x0, 0x7FF
@@ -176,7 +176,7 @@ srai x5, x4, 4
         sraiTest.testAssertion(new GPRAssertion(5, 0x6FFL >> 4));
     }
 
-    public void testLUI() throws Exception {
+    public void testLUI() throws java.lang.Exception {
         RiscvCmdTest luiTest = new RiscvCmdTest("test_lui");
         luiTest.compile("""
 lui x10, 0x1234
@@ -187,7 +187,7 @@ lui x11, 0x8FFF
         luiTest.testAssertion(new GPRAssertion(11, 0x8FFFL << 12));
     }
 
-    public void testAUIPC() throws Exception {
+    public void testAUIPC() throws java.lang.Exception {
         RiscvCmdTest auipcTest = new RiscvCmdTest("test_auipc");
         auipcTest.compile("""
 auipc x10, 0x1234

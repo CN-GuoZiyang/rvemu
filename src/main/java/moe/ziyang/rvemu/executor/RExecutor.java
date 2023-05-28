@@ -1,7 +1,10 @@
 package moe.ziyang.rvemu.executor;
 
 import moe.ziyang.rvemu.Core;
+import moe.ziyang.rvemu.Exception;
 import moe.ziyang.rvemu.instruction.Instruction;
+
+import java.util.Optional;
 
 public class RExecutor implements TypeExecutor {
 
@@ -12,7 +15,7 @@ public class RExecutor implements TypeExecutor {
     }
 
     @Override
-    public void execute(Instruction inst) {
+    public Optional<Exception> execute(Instruction inst) {
         switch (inst.getOpcode()) {
             case 0x33:
                 switch (inst.getFunct3()) {
@@ -56,7 +59,11 @@ public class RExecutor implements TypeExecutor {
                         // AND
                         core.gprs.write(inst.getRd(), core.gprs.read(inst.getRs1()) & core.gprs.read(inst.getRs2()));
                         break;
+                    default:
+                        return Optional.of(Exception.IllegalInstruction.setValue(inst.getRawInst()));
                 }
+            default:
+                return Optional.of(Exception.IllegalInstruction.setValue(inst.getRawInst()));
         }
     }
 }

@@ -1,10 +1,10 @@
 package moe.ziyang.rvemu.executor;
 
 import moe.ziyang.rvemu.Core;
+import moe.ziyang.rvemu.Exception;
 import moe.ziyang.rvemu.instruction.Instruction;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 public class IExecutor implements TypeExecutor {
 
@@ -15,7 +15,7 @@ public class IExecutor implements TypeExecutor {
     }
 
     @Override
-    public void execute(Instruction inst) {
+    public Optional<Exception> execute(Instruction inst) {
         switch (inst.getOpcode()) {
             case 0x03 -> {
                 long address = inst.getImm() + core.gprs.read(inst.getRs1());
@@ -48,6 +48,9 @@ public class IExecutor implements TypeExecutor {
                     case 0x6 ->
                         // LWU
                             core.gprs.write(inst.getRd(), core.load(address, 32));
+                    default -> {
+                        return Optional.of(Exception.IllegalInstruction.setValue(inst.getRawInst()));
+                    }
                 }
             }
             case 0x0f -> {
@@ -59,6 +62,8 @@ public class IExecutor implements TypeExecutor {
                     case 0x1:
                         // FENCE.I
                         break;
+                    default:
+                        return Optional.of(Exception.IllegalInstruction.setValue(inst.getRawInst()));
                 }
             }
             case 0x13 -> {
@@ -100,6 +105,8 @@ public class IExecutor implements TypeExecutor {
                         // ANDI
                         core.gprs.write(inst.getRd(), imm & core.gprs.read(inst.getRs1()));
                         break;
+                    default:
+                        return Optional.of(Exception.IllegalInstruction.setValue(inst.getRawInst()));
                 }
             }
             case 0x67 -> {
@@ -108,6 +115,10 @@ public class IExecutor implements TypeExecutor {
                 long target = (inst.getImm() + core.gprs.read(inst.getRs1())) & ~0x1L;
                 core.setPc(target - 4L);
             }
+            default -> {
+                return Optional.of(Exception.IllegalInstruction.setValue(inst.getRawInst()));
+            }
         }
+        return Optional.empty();
     }
 }

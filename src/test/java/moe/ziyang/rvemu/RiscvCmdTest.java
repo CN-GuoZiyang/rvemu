@@ -13,7 +13,7 @@ public class RiscvCmdTest {
         this.binFileName = String.format("/tmp/%s.bin", this.testName);
     }
 
-    public void compile(String source) throws Exception {
+    public void compile(String source) throws java.lang.Exception {
         String sFileName = String.format("/tmp/%s.s", this.testName);
         String oFileName = String.format("/tmp/%s.o", this.testName);
 

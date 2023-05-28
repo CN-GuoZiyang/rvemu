@@ -4,7 +4,7 @@ import moe.ziyang.rvemu.infra.Const;
 
 public class GPRs {
 
-    long[] regs;
+    private final long[] regs;
 
     public GPRs() {
         regs = new long[Const.GPR_NUM];

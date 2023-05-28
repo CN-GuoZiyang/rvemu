@@ -6,7 +6,8 @@ public class JTypeInst extends Instruction {
     private int rd;
     private long imm;
 
-    public JTypeInst(int opcode) {
+    public JTypeInst(int rawInst, int opcode) {
+        super(rawInst);
         this.opcode = opcode;
     }
 
@@ -17,7 +18,7 @@ public class JTypeInst extends Instruction {
                 | (rawInst & 0xff000)
                 | (rawInst >>> 9) & 0x800
                 | (rawInst >>> 20) & 0x7fe;
-        return new JTypeInst(opcode).rd(rd).imm(imm);
+        return new JTypeInst(rawInst, opcode).rd(rd).imm(imm);
     }
 
     @Override

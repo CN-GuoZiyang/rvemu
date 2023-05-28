@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 public class RegisterRegisterTest extends TestCase {
 
-    public void testAdd() throws Exception {
+    public void testAdd() throws java.lang.Exception {
         RiscvCmdTest addTest = new RiscvCmdTest("test_add");
         addTest.compile("""
 addi x2, x0, 5
@@ -29,7 +29,7 @@ add  x10, x7, x9
         addTest.testAssertion(new GPRAssertion(10, -12L));
     }
 
-    public void testSub() throws Exception {
+    public void testSub() throws java.lang.Exception {
         RiscvCmdTest subTest = new RiscvCmdTest("test_sub");
         subTest.compile("""
 addi x2, x0, 5
@@ -54,7 +54,7 @@ sub  x10, x7, x9
         subTest.testAssertion(new GPRAssertion(10, -18L));
     }
 
-    public void testSlt() throws Exception {
+    public void testSlt() throws java.lang.Exception {
         RiscvCmdTest sltTest = new RiscvCmdTest("test_slt");
         sltTest.compile("""
 addi x2, x0, 5
@@ -71,7 +71,7 @@ slt  x6, x5, x3
         sltTest.testAssertion(new GPRAssertion(6, 1L));
     }
 
-    public void testSltu() throws Exception {
+    public void testSltu() throws java.lang.Exception {
         RiscvCmdTest sltuTest = new RiscvCmdTest("test_sltu");
         sltuTest.compile("""
 addi x2, x0, 5
@@ -88,7 +88,7 @@ sltu  x6, x5, x3
         sltuTest.testAssertion(new GPRAssertion(6, 0L));
     }
 
-    public void testAndOrXor() throws Exception {
+    public void testAndOrXor() throws java.lang.Exception {
         RiscvCmdTest andOrXorTest = new RiscvCmdTest("test_andOrXor");
         andOrXorTest.compile("""
 addi x2, x0, 5
@@ -113,7 +113,7 @@ xor  x10, x3, x4
         andOrXorTest.testAssertion(new GPRAssertion(10, 37L^-7L));
     }
 
-    public void testSll() throws Exception {
+    public void testSll() throws java.lang.Exception {
         RiscvCmdTest sllTest = new RiscvCmdTest("test_sll");
         sllTest.compile("""
 addi x2, x0, 5
@@ -132,7 +132,7 @@ sll  x7, x5, x6
         sllTest.testAssertion(new GPRAssertion(7, -7L << 12));
     }
 
-    public void testSrlSra() throws Exception {
+    public void testSrlSra() throws java.lang.Exception {
         RiscvCmdTest srlsraTest = new RiscvCmdTest("test_srlsra");
         srlsraTest.compile("""
 addi x2, x0, 0x72e

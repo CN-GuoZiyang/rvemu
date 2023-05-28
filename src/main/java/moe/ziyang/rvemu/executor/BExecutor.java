@@ -1,7 +1,10 @@
 package moe.ziyang.rvemu.executor;
 
 import moe.ziyang.rvemu.Core;
+import moe.ziyang.rvemu.Exception;
 import moe.ziyang.rvemu.instruction.Instruction;
+
+import java.util.Optional;
 
 public class BExecutor implements TypeExecutor {
 
@@ -12,48 +15,55 @@ public class BExecutor implements TypeExecutor {
     }
 
     @Override
-    public void execute(Instruction inst) {
+    public Optional<Exception> execute(Instruction inst) {
         switch (inst.getOpcode()) {
             case 0x63 -> {
                 switch (inst.getFunct3()) {
-                    case 0x0:
+                    case 0x0 -> {
                         // BEQ
                         if (core.gprs.read(inst.getRs1()) == core.gprs.read(inst.getRs2())) {
                             core.setPc(core.getPc() + inst.getImm() - 4L);
                         }
-                        break;
-                    case 0x1:
+                    }
+                    case 0x1 -> {
                         // BNE
                         if (core.gprs.read(inst.getRs1()) != core.gprs.read(inst.getRs2())) {
                             core.setPc(core.getPc() + inst.getImm() - 4L);
                         }
-                        break;
-                    case 0x4:
+                    }
+                    case 0x4 -> {
                         // BLT
                         if (core.gprs.read(inst.getRs1()) < core.gprs.read(inst.getRs2())) {
                             core.setPc(core.getPc() + inst.getImm() - 4L);
                         }
-                        break;
-                    case 0x5:
+                    }
+                    case 0x5 -> {
                         // BGE
                         if (core.gprs.read(inst.getRs1()) >= core.gprs.read(inst.getRs2())) {
                             core.setPc(core.getPc() + inst.getImm() - 4L);
                         }
-                        break;
-                    case 0x6:
+                    }
+                    case 0x6 -> {
                         // BLTU
                         if (Long.compareUnsigned(core.gprs.read(inst.getRs1()), core.gprs.read(inst.getRs2())) < 0) {
                             core.setPc(core.getPc() + inst.getImm() - 4L);
                         }
-                        break;
-                    case 0x7:
+                    }
+                    case 0x7 -> {
                         // BGEU
                         if (Long.compareUnsigned(core.gprs.read(inst.getRs1()), core.gprs.read(inst.getRs2())) >= 0) {
                             core.setPc(core.getPc() + inst.getImm() - 4L);
                         }
-                        break;
+                    }
+                    default -> {
+                        return Optional.of(Exception.IllegalInstruction.setValue(inst.getRawInst()));
+                    }
                 }
             }
+            default -> {
+                return Optional.of(Exception.IllegalInstruction.setValue(inst.getRawInst()));
+            }
         }
+        return Optional.empty();
     }
 }
