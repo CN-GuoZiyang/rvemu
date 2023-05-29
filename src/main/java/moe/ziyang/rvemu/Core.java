@@ -19,6 +19,8 @@ public class Core {
     public final CSRs csrs;
     // 指令和数据总线
     private final Bus bus;
+    // 当前所在特权级
+    private PrivilegeLevel privilegeLevel;
     // 指令执行
     private final Executor executor;
 
@@ -27,6 +29,7 @@ public class Core {
         gprs = new GPRs();
         csrs = new CSRs();
         bus = new Bus(code);
+        privilegeLevel = PrivilegeLevel.Machine;
         executor = new Executor(this);
     }
 
